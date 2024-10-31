@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:rto/Utils/constants/colors.dart';
+import 'package:http/http.dart' as http;
+import 'Exports/myExports.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -10,7 +9,32 @@ class MyDashboard extends StatefulWidget {
 }
 
 class _MyDashboardState extends State<MyDashboard> {
-  String apiKey = dotenv.env['BASE_URL']??'';
+  String baseUri = dotenv.env['BASE_URL'] ?? '';
+  List<CategoryList>? ofCategoryList;
+
+  void getCategoryList() async {
+    try {
+      var categoriesResponse =
+          await http.get(Uri.parse("${baseUri}/category_list"));
+      if (categoriesResponse.statusCode == 200) {
+        ofCategoryList =
+            CategoryList.ofCategoryList(jsonDecode(categoriesResponse.body));
+        setState(() {});
+        Uihelper.logger.d("Category List API Response $ofCategoryList");
+      } else {
+        Uihelper.logger.e("Failed to Load API, Please Try Again Later");
+      }
+    } catch (e) {
+      Uihelper.logger.e("${e.toString()}");
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getCategoryList();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +47,7 @@ class _MyDashboardState extends State<MyDashboard> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            "${apiKey}/category_list",
+            "${baseUri}/category_list",
             style: TextStyle(color: MyColors.textPrimary),
           )
         ],
