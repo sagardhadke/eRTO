@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:rto/Utils/constants/colors.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -9,14 +10,23 @@ class MyDashboard extends StatefulWidget {
 }
 
 class _MyDashboardState extends State<MyDashboard> {
-  // var base_uri = dotenv.env['BASE_URI']??'';
+  String apiKey = dotenv.env['BASE_URL']??'';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text("My Dashboard"),
+        backgroundColor: MyColors.appBar,
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [Text("${dotenv.env['BASE_URL']!}/2050")],
+        children: [
+          Text(
+            "${apiKey}/category_list",
+            style: TextStyle(color: MyColors.textPrimary),
+          )
+        ],
       ),
     );
   }
