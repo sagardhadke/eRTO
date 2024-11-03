@@ -1,8 +1,6 @@
-import 'dart:async';
+import 'dart:ui';
 
 import 'package:http/http.dart' as http;
-import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
-import 'package:rto/Utils/Helper/Connections/no_internet.dart';
 import 'Exports/myExports.dart';
 
 class MyDashboard extends StatefulWidget {
@@ -16,8 +14,12 @@ class _MyDashboardState extends State<MyDashboard> {
   String baseUri = dotenv.env['BASE_URL'] ?? '';
   List<CategoryList>? ofCategoryList;
   bool isConnectedToInternet = false;
+  bool isLoading = true;
 
   StreamSubscription? _internetConnectionStreamSubscription;
+
+  int myIndex = 0;
+  List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
 
   void getCategoryList() async {
     try {
@@ -42,22 +44,25 @@ class _MyDashboardState extends State<MyDashboard> {
     getCategoryList();
 
     //Internet Checker
-     _internetConnectionStreamSubscription =
+    _internetConnectionStreamSubscription =
         InternetConnection().onStatusChange.listen((event) {
       switch (event) {
         case InternetStatus.connected:
           setState(() {
             isConnectedToInternet = true;
+            isLoading = false;
           });
           break;
         case InternetStatus.disconnected:
           setState(() {
             isConnectedToInternet = false;
+            isLoading = false;
           });
           break;
         default:
           setState(() {
             isConnectedToInternet = false;
+            isLoading = false;
           });
           break;
       }
@@ -66,25 +71,39 @@ class _MyDashboardState extends State<MyDashboard> {
 
   @override
   void dispose() {
-     _internetConnectionStreamSubscription?.cancel();
+    _internetConnectionStreamSubscription?.cancel();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("My Dashboard"),
-        backgroundColor: MyColors.appBar,
-      ),
-      body: isConnectedToInternet ? Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          
-         
-        ],
-      ) : NoInternet()
+      body: isLoading
+          ? Center(
+              child: CircularProgressIndicator.adaptive(),
+            )
+          : isConnectedToInternet
+              ? IndexedStack(
+                  children: widgetList,
+                  index: myIndex,
+                )
+              : NoInternet(),
+      bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: MyAppColors.primary,
+          onTap: (index) {
+            setState(() {
+              myIndex = index;
+            });
+          },
+          currentIndex: myIndex,
+          items: const [
+            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.category_rounded), label: 'Category'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.text_snippet_outlined), label: 'Test'),
+          ]),
     );
   }
 }

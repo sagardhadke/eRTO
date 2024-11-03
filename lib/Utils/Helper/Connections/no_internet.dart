@@ -36,7 +36,7 @@ class NoInternet extends StatelessWidget {
             ),
             ElevatedButton(
                 style:
-                    ElevatedButton.styleFrom(backgroundColor: MyColors.appBar),
+                    ElevatedButton.styleFrom(backgroundColor: MyAppColors.appBar),
                 onPressed: () {
                   
                 },

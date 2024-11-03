@@ -14,12 +14,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'RTO',
+        title: 'eRTO',
         themeMode: ThemeMode.system,
         theme: ThemeData(
+          primaryColor: MyAppColors.primary,
+          secondaryHeaderColor: MyAppColors.secondary,
+          scaffoldBackgroundColor: MyAppColors.primaryBackground,
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MyDashboard());
+        home: MySplashScreen());
   }
 }
