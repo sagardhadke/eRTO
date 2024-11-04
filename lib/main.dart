@@ -3,7 +3,17 @@ import 'Exports/myExports.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<CategoryController>(
+          create: (_) => CategoryController(ApiService()),
+        ),
+      ],
+      child: MyApp(),
+    ),
+    );
+    // const MyApp());
 }
 
 class MyApp extends StatelessWidget {
