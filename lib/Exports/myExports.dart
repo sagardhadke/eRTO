@@ -21,6 +21,14 @@ export 'package:rto/Views/Category.dart';
 export 'package:rto/Model/categoryList.dart';
 
 
+//Controller
+export 'package:rto/Controller/category_controller.dart';
+
+//Services
+export 'package:rto/Services/api_service.dart';
+
+//Provider
+export 'package:provider/provider.dart';
 
 //UI Helper
 export 'package:rto/Widgets/uiHelper.dart';

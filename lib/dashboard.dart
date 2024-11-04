@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:http/http.dart' as http;
 import 'Exports/myExports.dart';
 
 class MyDashboard extends StatefulWidget {
@@ -11,8 +8,6 @@ class MyDashboard extends StatefulWidget {
 }
 
 class _MyDashboardState extends State<MyDashboard> {
-  String baseUri = dotenv.env['BASE_URL'] ?? '';
-  List<CategoryList>? ofCategoryList;
   bool isConnectedToInternet = false;
   bool isLoading = true;
 
@@ -21,27 +16,10 @@ class _MyDashboardState extends State<MyDashboard> {
   int myIndex = 0;
   List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
 
-  void getCategoryList() async {
-    try {
-      var categoriesResponse =
-          await http.get(Uri.parse("${baseUri}/category_list"));
-      if (categoriesResponse.statusCode == 200) {
-        ofCategoryList =
-            CategoryList.ofCategoryList(jsonDecode(categoriesResponse.body));
-        setState(() {});
-        Uihelper.logger.d("Category List API Response $ofCategoryList");
-      } else {
-        Uihelper.logger.e("Failed to Load API, Please Try Again Later");
-      }
-    } catch (e) {
-      Uihelper.logger.e("${e.toString()}");
-    }
-  }
 
   @override
   void initState() {
     super.initState();
-    getCategoryList();
 
     //Internet Checker
     _internetConnectionStreamSubscription =
@@ -77,8 +55,10 @@ class _MyDashboardState extends State<MyDashboard> {
 
   @override
   Widget build(BuildContext context) {
+    final categoryController = Provider.of<CategoryController>(context);
+
     return Scaffold(
-      body: isLoading
+      body: categoryController.isLoading
           ? Center(
               child: CircularProgressIndicator.adaptive(),
             )

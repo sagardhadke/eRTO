@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:rto/dashboard.dart';
+import 'package:rto/Views/Category.dart';
+
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
@@ -14,7 +15,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
     super.initState();
     Future.delayed(Duration(microseconds: 1500), () {
       return Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MyDashboard()));
+          context, MaterialPageRoute(builder: (context) => MyCategory()));
     });
   }
 
