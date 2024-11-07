@@ -40,10 +40,10 @@ class _MyTestState extends State<MyTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        drawer: Uihelper.myDrawer(context),
         appBar: AppBar(
           title:
               Uihelper.myText('Exam', TextStyle(fontWeight: FontWeight.bold)),
-          centerTitle: true,
           backgroundColor: Colors.white,
         ),
         body: Column(

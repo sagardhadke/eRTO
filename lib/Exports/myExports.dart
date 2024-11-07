@@ -44,6 +44,7 @@ export 'package:rto/Widgets/textHelper.dart';
 
 
 //Google Fonts
+export 'package:google_fonts/google_fonts.dart';
 
 
 //Logger

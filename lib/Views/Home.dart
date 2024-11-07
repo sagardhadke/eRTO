@@ -14,9 +14,9 @@ class _MyHomeState extends State<MyHome> {
     return Scaffold(
       drawer: Uihelper.myDrawer(context),
       appBar: AppBar(
-        title: Text("Home"),
-        backgroundColor: MyAppColors.appBar,
-      ),
+          title:
+              Uihelper.myText('Home', TextStyle(fontWeight: FontWeight.bold)),
+          backgroundColor: Colors.white),
     );
   }
 }

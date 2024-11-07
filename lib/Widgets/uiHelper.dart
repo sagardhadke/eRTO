@@ -1,4 +1,3 @@
-import 'package:google_fonts/google_fonts.dart';
 import 'package:rto/Exports/myExports.dart';
 
 class Uihelper {
@@ -27,8 +26,7 @@ class Uihelper {
 
     return Text(
       text,
-      style:
-          style ?? defaultStyle,
+      style: style ?? defaultStyle,
     );
   }
 
@@ -37,11 +35,7 @@ class Uihelper {
       backgroundColor: Colors.white,
       child: ListView(
         children: [
-          Image.network(
-              "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQiUN2ts0AQPmXrBUzO0RNmA6DZWh1fbD5DcA&s"),
-          ListTile(
-            title: Text("About"),
-          ),
+          Image.asset("Assets/eRTO2.png"),
           ListTile(
             leading: Icon(
               Icons.language,

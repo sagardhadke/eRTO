@@ -1,6 +1,4 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:http/http.dart' as http;
-import 'package:readmore/readmore.dart';
 import 'package:rto/Exports/myExports.dart';
 
 class MyCategory extends StatefulWidget {
@@ -40,8 +38,8 @@ class _MyCategoryState extends State<MyCategory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Uihelper.myDrawer(context),
       appBar: AppBar(
-        centerTitle: true,
         title:
             Uihelper.myText('Category', TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
