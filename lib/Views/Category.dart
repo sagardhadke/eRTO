@@ -42,7 +42,8 @@ class _MyCategoryState extends State<MyCategory> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Category"),
+        title:
+            Uihelper.myText('Category', TextStyle(fontWeight: FontWeight.bold)),
         backgroundColor: Colors.white,
       ),
       body: ofCategoryList == null
@@ -86,14 +87,13 @@ class _MyCategoryState extends State<MyCategory> {
                             )),
                         Padding(
                           padding: const EdgeInsets.only(top: 50),
-                          child: Positioned(
-                              child: ReadMoreText(
-                                  textAlign: TextAlign.center,
-                                  isExpandable: true,
-                                  trimLines: 3,
-                                  trimMode: TrimMode.Line,
-                                  style: TextStyle(fontSize: 15),
-                                  '${ofCategoryList![index].description!}')),
+                          child: ReadMoreText(
+                              textAlign: TextAlign.center,
+                              isExpandable: true,
+                              trimLines: 3,
+                              trimMode: TrimMode.Line,
+                              style: TextStyle(fontSize: 15),
+                              '${ofCategoryList![index].description!}'),
                         ),
                       ],
                     );
