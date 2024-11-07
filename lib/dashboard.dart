@@ -16,7 +16,6 @@ class _MyDashboardState extends State<MyDashboard> {
   int myIndex = 0;
   List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
 
-
   @override
   void initState() {
     super.initState();
@@ -55,19 +54,11 @@ class _MyDashboardState extends State<MyDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    final categoryController = Provider.of<CategoryController>(context);
-
     return Scaffold(
-      body: categoryController.isLoading
-          ? Center(
-              child: CircularProgressIndicator.adaptive(),
-            )
-          : isConnectedToInternet
-              ? IndexedStack(
-                  children: widgetList,
-                  index: myIndex,
-                )
-              : NoInternet(),
+      body: IndexedStack(
+        children: widgetList,
+        index: myIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: MyAppColors.primary,

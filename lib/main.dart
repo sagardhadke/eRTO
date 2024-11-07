@@ -13,7 +13,6 @@ Future<void> main() async {
       child: MyApp(),
     ),
     );
-    // const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -33,6 +32,6 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: MySplashScreen());
+        home: MyTest());
   }
 }

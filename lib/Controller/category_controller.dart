@@ -1,7 +1,4 @@
 import 'package:rto/Exports/myExports.dart';
-import 'package:rto/Model/categoryList.dart';
-import 'package:rto/Services/api_service.dart';
-
 class CategoryController with ChangeNotifier {
   final ApiService apiService;
   List<CategoryList> categories = [];

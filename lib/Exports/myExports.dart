@@ -33,6 +33,9 @@ export 'package:provider/provider.dart';
 //UI Helper
 export 'package:rto/Widgets/uiHelper.dart';
 
+//Text Helper
+export 'package:rto/Widgets/textHelper.dart';
+
 
 //Google Fonts
 

@@ -1,3 +1,4 @@
+import 'package:google_fonts/google_fonts.dart';
 import 'package:rto/Exports/myExports.dart';
 
 class Uihelper {
@@ -11,6 +12,12 @@ class Uihelper {
       dateTimeFormat: DateTimeFormat.onlyTimeAndSinceStart,
     ),
   );
+
+  static Widget myText(String text, TextStyle style) {
+    return Text(text,
+        style: GoogleFonts.roboto(
+            textStyle: style, fontWeight: FontWeight.w500, fontSize: 16));
+  }
 
   static Widget myDrawer(BuildContext context) {
     return Drawer(
