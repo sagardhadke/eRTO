@@ -17,6 +17,7 @@ export 'package:rto/Views/Test.dart';
 export 'package:rto/Views/Category.dart';
 export 'package:rto/Views/Terms.dart';
 export 'package:rto/Views/Instruction.dart';
+export 'package:rto/Views/Exam.dart';
 
 
 
@@ -46,6 +47,12 @@ export 'package:rto/Widgets/textHelper.dart';
 
 //Logger
 export 'package:logger/logger.dart';
+
+//Cached Image
+export 'package:cached_network_image/cached_network_image.dart';
+
+//ReadMore 
+export 'package:readmore/readmore.dart';
 
 
 //Colors
