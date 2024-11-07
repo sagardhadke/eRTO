@@ -73,7 +73,7 @@ class _MyDashboardState extends State<MyDashboard> {
             BottomNavigationBarItem(
                 icon: Icon(Icons.category_rounded), label: 'Category'),
             BottomNavigationBarItem(
-                icon: Icon(Icons.text_snippet_outlined), label: 'Test'),
+                icon: Icon(Icons.text_snippet_outlined), label: 'Exam'),
           ]),
     );
   }

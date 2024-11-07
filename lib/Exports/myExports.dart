@@ -24,6 +24,7 @@ export 'package:rto/Views/Exam.dart';
 //Models
 export 'package:rto/Model/categoryList.dart';
 export 'package:rto/Model/testCategory.dart';
+export 'package:rto/Model/examModel.dart';
 
 
 //Controller

@@ -62,7 +62,7 @@ class _MyTestState extends State<MyTest> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyExam(
+                                        builder: (context) => MyTermsOfUse(
                                             id: ofTestCategory![index].id)));
                                 Uihelper.logger
                                     .d("Id send ${ofTestCategory![index].id}");

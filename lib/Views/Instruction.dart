@@ -1,7 +1,8 @@
 import 'package:rto/Exports/myExports.dart';
 
 class Instruction extends StatefulWidget {
-  const Instruction({super.key});
+  final String? id;
+  const Instruction({ required this.id , super.key});
 
   @override
   State<Instruction> createState() => _InstructionState();
@@ -68,7 +69,7 @@ class _InstructionState extends State<Instruction> {
                         borderRadius: BorderRadius.circular(12))),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => MyTest()));
+                      MaterialPageRoute(builder: (context) => MyExam(id: widget.id,)));
                 },
                 child: Text(
                   "Start Exam",

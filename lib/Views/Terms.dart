@@ -1,7 +1,8 @@
 import 'package:rto/Exports/myExports.dart';
 
 class MyTermsOfUse extends StatelessWidget {
-  const MyTermsOfUse({super.key});
+  final String? id;
+  const MyTermsOfUse({required this.id , super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +75,7 @@ class MyTermsOfUse extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12))),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Instruction()));
+                      MaterialPageRoute(builder: (context) => Instruction(id: id,)));
                 },
                 child: Text(
                   "Accept",
