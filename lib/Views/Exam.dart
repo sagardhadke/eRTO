@@ -9,6 +9,10 @@ class MyExam extends StatefulWidget {
 }
 
 class _MyExamState extends State<MyExam> {
+  String baseUri = dotenv.env['BASE_URL'] ?? '';
+
+  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
