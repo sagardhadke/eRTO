@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rto/Views/Terms.dart';
 
 class MyTest extends StatefulWidget {
   const MyTest({super.key});
@@ -12,7 +11,8 @@ class _MyTestState extends State<MyTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: MyTermsOfUse(),
-    );
+        body: Column(
+      children: [Text("this is best ")],
+    ));
   }
 }

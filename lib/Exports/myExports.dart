@@ -15,6 +15,9 @@ export 'package:rto/Views/Splash.dart';
 export 'package:rto/Views/home.dart';
 export 'package:rto/Views/Test.dart';
 export 'package:rto/Views/Category.dart';
+export 'package:rto/Views/Terms.dart';
+export 'package:rto/Views/Instruction.dart';
+
 
 
 //Models

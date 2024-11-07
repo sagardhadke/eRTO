@@ -1,66 +1,60 @@
 import 'package:rto/Exports/myExports.dart';
 
-class MyTermsOfUse extends StatelessWidget {
-  const MyTermsOfUse({super.key});
+class Instruction extends StatefulWidget {
+  const Instruction({super.key});
 
+  @override
+  State<Instruction> createState() => _InstructionState();
+}
+
+class _InstructionState extends State<Instruction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Uihelper.myText('Terms of Use', TextStyle()),
+        title: Uihelper.myText('Instruction', TextStyle()),
         centerTitle: true,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Column(
-              children: [
-                Uihelper.myText(Texthelper().myText, TextStyle()),
-                SizedBox(height: 5),
-                Uihelper.myText(Texthelper().user_gen, TextStyle()),
-              ],
-            ),
-          ),
-          SizedBox(height: 10),
           ListTile(
-            title: Uihelper.myText(Texthelper().term_1, TextStyle()),
+            title: Uihelper.myText(Texthelper().instruction_1, TextStyle()),
             leading: Icon(
               size: 35,
-              Icons.person,
+              Icons.arrow_forward_ios,
               color: MyAppColors.buttonPrimary,
             ),
           ),
           ListTile(
-            title: Uihelper.myText(Texthelper().term_2, TextStyle()),
+            title: Uihelper.myText(Texthelper().instruction_2, TextStyle()),
             leading: Icon(
               size: 35,
-              Icons.lock,
+              Icons.arrow_forward_ios,
               color: MyAppColors.buttonPrimary,
             ),
           ),
           ListTile(
-            title: Uihelper.myText(Texthelper().term_3, TextStyle()),
+            title: Uihelper.myText(Texthelper().instruction_3, TextStyle()),
             leading: Icon(
               size: 35,
-              Icons.settings,
+              Icons.arrow_forward_ios,
               color: MyAppColors.buttonPrimary,
             ),
           ),
           ListTile(
-            title: Uihelper.myText(Texthelper().term_4, TextStyle()),
+            title: Uihelper.myText(Texthelper().instruction_4, TextStyle()),
             leading: Icon(
               size: 35,
-              Icons.privacy_tip,
+              Icons.arrow_forward_ios,
               color: MyAppColors.buttonPrimary,
             ),
           ),
           ListTile(
-            title: Uihelper.myText(Texthelper().term_5, TextStyle()),
+            title: Uihelper.myText(Texthelper().instruction_5, TextStyle()),
             leading: Icon(
               size: 35,
-              Icons.block,
+              Icons.arrow_forward_ios,
               color: MyAppColors.buttonPrimary,
             ),
           ),
@@ -74,10 +68,10 @@ class MyTermsOfUse extends StatelessWidget {
                         borderRadius: BorderRadius.circular(12))),
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Instruction()));
+                      MaterialPageRoute(builder: (context) => MyTest()));
                 },
                 child: Text(
-                  "Accept",
+                  "Start Exam",
                   style: TextStyle(color: Colors.white),
                 )),
           )
