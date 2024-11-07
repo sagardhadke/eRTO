@@ -22,6 +22,7 @@ export 'package:rto/Views/Instruction.dart';
 
 //Models
 export 'package:rto/Model/categoryList.dart';
+export 'package:rto/Model/testCategory.dart';
 
 
 //Controller

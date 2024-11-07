@@ -13,10 +13,23 @@ class Uihelper {
     ),
   );
 
-  static Widget myText(String text, TextStyle style) {
-    return Text(text,
-        style: GoogleFonts.roboto(
-            textStyle: style, fontWeight: FontWeight.w500, fontSize: 16));
+  // static Widget myText(String text, TextStyle style) {
+  //   return Text(text,
+  //       style: GoogleFonts.roboto(
+  //           textStyle: style, fontWeight: FontWeight.w500, fontSize: 16));
+  // }
+  static Widget myText(String text, TextStyle? style) {
+    //default TextStyle
+    TextStyle defaultStyle = GoogleFonts.roboto(
+      fontWeight: FontWeight.w500,
+      fontSize: 16,
+    );
+
+    return Text(
+      text,
+      style:
+          style ?? defaultStyle,
+    );
   }
 
   static Widget myDrawer(BuildContext context) {
