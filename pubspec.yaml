@@ -54,6 +54,7 @@ dependencies:
   internet_connection_checker_plus: ^2.5.2
   flutter_launcher_icons: ^0.14.1
   percent_indicator: ^4.2.3
+  flutter_image_slideshow: ^0.1.6
 
 dev_dependencies:
   flutter_test:
