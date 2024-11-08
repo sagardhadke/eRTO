@@ -25,4 +25,20 @@ class Texthelper {
       "You'll Have A Maximum of 60 Seconds To Answer Each Question.";
   String instruction_5 =
       "If You Don't Pass On Your First Attempt, You Have The Option To Retake The Test Within A One-Week Period.";
+
+  //Home Top Features
+ static List myTopFeatures = [
+    {
+      "name" : 'RTO Exam',
+      'image' : 'Assets/taffic.png'
+    },
+    {
+      "name" : 'Traffic Rules',
+      'image' : 'Assets/trafficRules.png'
+    },
+    {
+      "name" : 'Driving Instruction',
+      'image' : 'Assets/drivingInst.png'
+    }
+  ];
 }
