@@ -21,7 +21,6 @@ class MyTrafficRules extends StatelessWidget {
                   Trafficrules.trafficRules![i]['description']!,
                   TextStyle(fontWeight: FontWeight.w600),
                 ),
-                
               );
             }));
   }

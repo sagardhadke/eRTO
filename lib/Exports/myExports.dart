@@ -44,6 +44,7 @@ export 'package:rto/Widgets/uiHelper.dart';
 export 'package:rto/Widgets/textHelper.dart';
 
 export 'package:rto/Utils/trafficRules.dart';
+export 'package:rto/Utils/drivingInstruction.dart';
 
 //Google Fonts
 export 'package:google_fonts/google_fonts.dart';
