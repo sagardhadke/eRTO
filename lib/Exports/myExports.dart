@@ -20,11 +20,13 @@ export 'package:rto/Views/Instruction.dart';
 export 'package:rto/Views/Exam.dart';
 export 'package:rto/Views/TrafficRules.dart';
 export 'package:rto/Views/Driving_Instrucation.dart';
+export 'package:rto/Views/DrivingLessons.dart';
 
 //Models
 export 'package:rto/Model/categoryList.dart';
 export 'package:rto/Model/testCategory.dart';
 export 'package:rto/Model/examModel.dart';
+export 'package:rto/Model/drivingLesson.dart';
 
 //Controller
 export 'package:rto/Controller/category_controller.dart';

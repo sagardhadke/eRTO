@@ -19,7 +19,7 @@ class _MyHomeState extends State<MyHome> {
       }
 
       controller.animateToPage(currentPage,
-          duration: Duration(seconds: 3), curve: Curves.easeIn);
+          duration: Duration(milliseconds: 3), curve: Curves.easeIn);
     });
     super.initState();
   }
@@ -61,7 +61,13 @@ class _MyHomeState extends State<MyHome> {
         children: [
           GestureDetector(
             onTap: () {
-              debugPrint('Click');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyDrivingLessons(
+                            id: 1,
+                            img: "Assets/drive1.png",
+                          )));
             },
             child: Stack(
               children: [
@@ -83,7 +89,13 @@ class _MyHomeState extends State<MyHome> {
           ),
           GestureDetector(
             onTap: () {
-              debugPrint('Click');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyDrivingLessons(
+                            id: 2,
+                            img: "Assets/drive2.jpg",
+                          )));
             },
             child: Stack(
               children: [
@@ -105,7 +117,13 @@ class _MyHomeState extends State<MyHome> {
           ),
           GestureDetector(
             onTap: () {
-              debugPrint('Click');
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyDrivingLessons(
+                            id: 3,
+                            img: "Assets/drive3.png",
+                          )));
             },
             child: Stack(
               children: [
