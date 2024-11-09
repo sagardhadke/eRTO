@@ -43,6 +43,8 @@ export 'package:rto/Widgets/uiHelper.dart';
 //Text Helper
 export 'package:rto/Widgets/textHelper.dart';
 
+export 'package:rto/Utils/trafficRules.dart';
+
 //Google Fonts
 export 'package:google_fonts/google_fonts.dart';
 
