@@ -1,3 +1,5 @@
+import 'package:rto/Exports/myExports.dart';
+
 class Texthelper {
   String myText =
       'The application is notifying you to the presence of an app that provides several services that are essential information for safer and more efficient use.';
@@ -27,18 +29,9 @@ class Texthelper {
       "If You Don't Pass On Your First Attempt, You Have The Option To Retake The Test Within A One-Week Period.";
 
   //Home Top Features
- static List myTopFeatures = [
-    {
-      "name" : 'RTO Exam',
-      'image' : 'Assets/taffic.png'
-    },
-    {
-      "name" : 'Traffic Rules',
-      'image' : 'Assets/trafficRules.png'
-    },
-    {
-      "name" : 'Driving Instruction',
-      'image' : 'Assets/drivingInst.png'
-    }
+  static List myTopFeatures = [
+    {"name": 'RTO \n Exam', 'image': 'Assets/taffic.png', 'onTap' : MyTest()},
+    {"name": 'Traffic \nRules', 'image': 'Assets/trafficRules.png', 'onTap' : MyTrafficRules()},
+    {"name": 'Driving \nInstruction', 'image': 'Assets/drivingInst.png', 'onTap' : MyDriving_Instruction()}
   ];
 }
