@@ -43,11 +43,18 @@ class _MyHomeState extends State<MyHome> {
 
   int currentPage = 0;
   PageController controller = PageController(viewportFraction: 1.0);
+  bool isLoading = false;
 
   Future<void> _handleRefresh() async {
     print('Refreshing...');
-    await Future.delayed(const Duration(seconds: 3));
+    setState(() {
+      isLoading = true;
+    });
+    await Future.delayed(const Duration(seconds: 2));
     print('Refresh completed!');
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -66,24 +73,26 @@ class _MyHomeState extends State<MyHome> {
           animSpeedFactor: 3,
           showChildOpacityTransition: false,
           onRefresh: _handleRefresh,
-          child: ListView(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Uihelper.myText("Driving Lessons",
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              ),
-              // _imageSlider(),
-              _custPageView(),
-              _homeIntro(),
-              Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Uihelper.myText("Top Features",
-                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-              ),
-              _topFeatures(),
-            ],
-          )),
+          child: isLoading
+              ? _homeShimmer()
+              : ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Uihelper.myText("Driving Lessons",
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    ),
+                    // _imageSlider(),
+                    _custPageView(),
+                    _homeIntro(),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Uihelper.myText("Top Features",
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    ),
+                    _topFeatures(),
+                  ],
+                )),
     );
   }
 
@@ -303,6 +312,33 @@ class _MyHomeState extends State<MyHome> {
               ),
             );
           }),
+    );
+  }
+
+  _homeShimmer() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Uihelper.shimmerContainer(height: 20, width: 120, context: context),
+        SizedBox(height: 5),
+        Uihelper.shimmerContainer(
+            height: 250,
+            width: MediaQuery.sizeOf(context).width / 0.9,
+            context: context),
+        SizedBox(height: 10),
+        Uihelper.shimmerContainer(
+            height: 150,
+            width: MediaQuery.sizeOf(context).width / 0.8,
+            context: context),
+        SizedBox(height: 10),
+        Uihelper.shimmerContainer(height: 20, width: 120, context: context),
+        SizedBox(height: 10),
+        Row(
+            children: List.generate(3, (index) {
+          return Uihelper.shimmerContainer(
+              height: 100, width: 100, context: context);
+        }))
+      ],
     );
   }
 }
