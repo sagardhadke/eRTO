@@ -1,3 +1,4 @@
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:rto/Exports/myExports.dart';
 import 'package:http/http.dart' as http;
 
@@ -14,6 +15,10 @@ class _MyTestState extends State<MyTest> {
   bool isLoading = true;
 
   void getTestdata() async {
+    setState(() {
+      //for the shimmer effect
+      isLoading = true;
+    });
     try {
       var testApiRes = await http.get(Uri.parse("$baseUri/test_category_list"));
       if (testApiRes.statusCode == 200) {
@@ -31,6 +36,10 @@ class _MyTestState extends State<MyTest> {
     }
   }
 
+  Future<void> _handleRefresh() async {
+    getTestdata();
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,62 +49,99 @@ class _MyTestState extends State<MyTest> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        drawer: Uihelper.myDrawer(context),
-        appBar: AppBar(
-          title:
-              Uihelper.myText('Exam', TextStyle(fontWeight: FontWeight.bold)),
-        ),
-        body: Column(
-          children: [
-            isLoading
-                ? Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  )
-                : Expanded(
-                    child: ListView.builder(
-                        itemCount: ofTestCategory!.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            child: GestureDetector(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => MyTermsOfUse(
-                                            id: ofTestCategory![index].id)));
-                                Uihelper.logger
-                                    .d("Id send ${ofTestCategory![index].id}");
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Row(
+      drawer: Uihelper.myDrawer(context),
+      appBar: AppBar(
+        title: Uihelper.myText('Exam', TextStyle(fontWeight: FontWeight.bold)),
+      ),
+      body: LiquidPullToRefresh(
+          color: MyAppColors.buttonPrimary,
+          height: 150,
+          animSpeedFactor: 3,
+          showChildOpacityTransition: false,
+          onRefresh: _handleRefresh,
+          child: isLoading
+              ? _testShimer()
+              : ListView.builder(
+                  itemCount: ofTestCategory!.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Container(
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => MyTermsOfUse(
+                                      id: ofTestCategory![index].id)));
+                          Uihelper.logger
+                              .d("Id send ${ofTestCategory![index].id}");
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Row(
+                            children: [
+                              CachedNetworkImage(
+                                  imageUrl: ofTestCategory![index].catImage!),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    CachedNetworkImage(
-                                        imageUrl:
-                                            ofTestCategory![index].catImage!),
-                                    Expanded(
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Uihelper.myText(
-                                              ofTestCategory![index].catName!,
-                                              TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 18)),
-                                          ReadMoreText(ofTestCategory![index]
-                                              .description!),
-                                        ],
-                                      ),
-                                    ),
+                                    Uihelper.myText(
+                                        ofTestCategory![index].catName!,
+                                        TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 18)),
+                                    ReadMoreText(
+                                        ofTestCategory![index].description!),
                                   ],
                                 ),
                               ),
-                            ),
-                          );
-                        }),
-                  )
-          ],
-        ));
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  })),
+    );
+  }
+
+  _testShimer() {
+    return ListView.builder(
+        itemCount: 5,
+        itemBuilder: (context, index) {
+          return Container(
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Row(
+                children: [
+                  shimmerContainer(height: 100, width: 100),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        shimmerContainer(height: 20, width: 120),
+                        shimmerContainer(
+                            height: 15,
+                            width: MediaQuery.of(context).size.width * 0.8),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
+
+  Widget shimmerContainer({required double height, required double width}) {
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Shimmer.fromColors(
+      baseColor: _isDarkMode ? Colors.black12 : Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        height: height,
+        width: width,
+        color: Colors.white,
+      ),
+    );
   }
 }

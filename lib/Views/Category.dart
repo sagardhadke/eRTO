@@ -151,15 +151,16 @@ class _MyCategoryState extends State<MyCategory> {
                     height: 15, width: MediaQuery.of(context).size.width * 0.8),
               ),
             ],
-          );
+          ); 
         },
       ),
     );
   }
 
   Widget shimmerContainer({required double height, required double width}) {
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
+      baseColor: _isDarkMode ? Colors.black12 : Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
       child: Container(
         height: height,
