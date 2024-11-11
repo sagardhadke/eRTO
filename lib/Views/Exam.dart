@@ -42,6 +42,7 @@ class _MyExamState extends State<MyExam> {
 
   Future<bool> _onWillPop() async {
     bool exit = false;
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     await showDialog(
       barrierDismissible: false,
       context: context,
@@ -59,7 +60,7 @@ class _MyExamState extends State<MyExam> {
           ),
           content: Text(
             "Do you want to cancel the exam and go back?",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: _isDarkMode ? Colors.white : Colors.black),
           ),
           actions: <Widget>[
             TextButton(
@@ -239,7 +240,7 @@ class _MyExamState extends State<MyExam> {
 
   Widget _nextButton() {
     bool isLastQuestion = currentQuestionIndex == (ofExam?.length ?? 0) - 1;
-
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Container(
       width: MediaQuery.of(context).size.width * 0.5,
       height: 48,
@@ -247,7 +248,11 @@ class _MyExamState extends State<MyExam> {
         onPressed: () {
           if (selectedAnswer == null) {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text("Please select an answer to proceed."),
+              content: Text(
+                "Please select an answer to proceed.",
+                style:
+                    TextStyle(color: _isDarkMode ? Colors.white : Colors.black),
+              ),
               backgroundColor: Colors.red,
             ));
           } else {

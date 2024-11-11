@@ -37,6 +37,8 @@ class _MyCategoryState extends State<MyCategory> {
 
   @override
   Widget build(BuildContext context) {
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       drawer: Uihelper.myDrawer(context),
       appBar: AppBar(
@@ -62,7 +64,7 @@ class _MyCategoryState extends State<MyCategory> {
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height / 2,
-                          color: Colors.white,
+                          color: _isDarkMode ? Colors.black : Colors.white,
                         ),
                         Positioned(
                           top: -50,
