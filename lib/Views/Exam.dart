@@ -103,7 +103,6 @@ class _MyExamState extends State<MyExam> {
             title:
                 Uihelper.myText('Exam', TextStyle(fontWeight: FontWeight.bold)),
             centerTitle: true,
-            backgroundColor: Colors.white,
           ),
           body: isLoading
               ? Center(

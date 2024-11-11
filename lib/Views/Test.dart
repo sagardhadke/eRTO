@@ -44,7 +44,6 @@ class _MyTestState extends State<MyTest> {
         appBar: AppBar(
           title:
               Uihelper.myText('Exam', TextStyle(fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.white,
         ),
         body: Column(
           children: [

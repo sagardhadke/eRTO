@@ -21,6 +21,7 @@ export 'package:rto/Views/Exam.dart';
 export 'package:rto/Views/TrafficRules.dart';
 export 'package:rto/Views/Driving_Instrucation.dart';
 export 'package:rto/Views/DrivingLessons.dart';
+export 'package:rto/Views/Four_wheeler_tip.dart';
 
 //Models
 export 'package:rto/Model/categoryList.dart';
@@ -43,8 +44,9 @@ export 'package:rto/Widgets/uiHelper.dart';
 //Text Helper
 export 'package:rto/Widgets/textHelper.dart';
 
-export 'package:rto/Utils/trafficRules.dart';
-export 'package:rto/Utils/drivingInstruction.dart';
+export 'package:rto/Utils/Helper/trafficRules.dart';
+export 'package:rto/Utils/Helper/drivingInstruction.dart';
+export 'package:rto/Utils/Helper/drivingTip.dart';
 
 //Google Fonts
 export 'package:google_fonts/google_fonts.dart';

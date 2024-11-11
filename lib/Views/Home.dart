@@ -1,5 +1,7 @@
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:rto/Exports/myExports.dart';
+import 'package:rto/Utils/Themes/theme_manager.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -8,9 +10,18 @@ class MyHome extends StatefulWidget {
   State<MyHome> createState() => _MyHomeState();
 }
 
+ThemeManager _themeManager = ThemeManager();
+
 class _MyHomeState extends State<MyHome> {
   @override
+  void dispose() {
+    _themeManager.removeListener(themeListener);
+    super.dispose();
+  }
+
+  @override
   void initState() {
+    _themeManager.addListener(themeListener);
     Timer.periodic(Duration(seconds: 3), (time) {
       if (currentPage < 2) {
         currentPage++;
@@ -24,38 +35,61 @@ class _MyHomeState extends State<MyHome> {
     super.initState();
   }
 
+  themeListener() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
   int currentPage = 0;
   PageController controller = PageController(viewportFraction: 1.0);
 
+  Future<void> _handleRefresh() async {
+    print('Refreshing...');
+    await Future.delayed(const Duration(seconds: 3));
+    print('Refresh completed!');
+  }
+
   @override
   Widget build(BuildContext context) {
+    // TextTheme _textTheme = Theme.of(context).textTheme;
+    // bool isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
       drawer: Uihelper.myDrawer(context),
       appBar: AppBar(
-          title:
-              Uihelper.myText('Home', TextStyle(fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.white),
-      body: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Uihelper.myText("Driving Lessons",
-              TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-        ),
-        // _imageSlider(),
-        _custPageView(),
-        _homeIntro(),
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Uihelper.myText("Top Features",
-              TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-        ),
-        _topFeatures(),
-      ]),
+        title: Uihelper.myText('Home', TextStyle(fontWeight: FontWeight.bold)),
+      ),
+      body: LiquidPullToRefresh(
+          color: MyAppColors.buttonPrimary,
+          height: 150,
+          animSpeedFactor: 3,
+          showChildOpacityTransition: false,
+          onRefresh: _handleRefresh,
+          child: ListView(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Uihelper.myText("Driving Lessons",
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              ),
+              // _imageSlider(),
+              _custPageView(),
+              _homeIntro(),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Uihelper.myText("Top Features",
+                    TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+              ),
+              _topFeatures(),
+            ],
+          )),
     );
   }
 
   Widget _custPageView() {
-    return Expanded(
+    return SizedBox(
+      height: 200,
       child: PageView(
         controller: controller,
         children: [
@@ -188,32 +222,44 @@ class _MyHomeState extends State<MyHome> {
   Widget _homeIntro() {
     return Padding(
       padding: const EdgeInsets.all(7.0),
-      child: Card(
-        elevation: 10,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Uihelper.myText("Four Wheeler",
-                      TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                  Uihelper.myText(
-                      "Get four-wheeler \ninformation and advice \nfor a smooth ride",
-                      TextStyle(fontSize: 17))
-                ],
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => MyFour_Wheeler_Tips()));
+        },
+        child: Card(
+          elevation: 10,
+          child: Row(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Uihelper.myText("Four Wheeler",
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+                    Uihelper.myText(
+                        "Get four-wheeler \ninformation and advice \nfor a smooth ride",
+                        TextStyle(fontSize: 17))
+                  ],
+                ),
               ),
-            ),
-            Image.asset(height: 100, "Assets/mycar.png")
-          ],
+              Image.asset(
+                  width: MediaQuery.sizeOf(context).width / 03,
+                  height: 100,
+                  "Assets/mycar.png")
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _topFeatures() {
-    return Expanded(
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
+    return SizedBox(
+      height: 200,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: Texthelper.myTopFeatures.length,
@@ -230,8 +276,10 @@ class _MyHomeState extends State<MyHome> {
               child: Container(
                 width: MediaQuery.sizeOf(context).width / 03,
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(width: 0.5, color: Colors.grey)),
+                    color: _isDarkMode ? Colors.black : Colors.white,
+                    border: _isDarkMode
+                        ? null
+                        : Border.all(width: 0.5, color: Colors.grey)),
                 child: Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: Column(

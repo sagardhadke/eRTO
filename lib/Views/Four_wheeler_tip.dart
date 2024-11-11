@@ -9,7 +9,6 @@ class MyFour_Wheeler_Tips extends StatelessWidget {
       appBar: AppBar(
         title: Uihelper.myText(
             'Four Wheeler Tip', TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
       ),
       body: ListView.builder(
           itemCount: Drivingtip.drivingTips.length,

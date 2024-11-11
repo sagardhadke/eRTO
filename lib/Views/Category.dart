@@ -42,7 +42,6 @@ class _MyCategoryState extends State<MyCategory> {
       appBar: AppBar(
         title:
             Uihelper.myText('Category', TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
       ),
       body: ofCategoryList == null
           ? Center(

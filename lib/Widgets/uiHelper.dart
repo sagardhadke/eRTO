@@ -1,4 +1,5 @@
 import 'package:rto/Exports/myExports.dart';
+import 'package:rto/Utils/Themes/theme_manager.dart';
 
 class Uihelper {
   static final Logger logger = Logger(
@@ -31,8 +32,8 @@ class Uihelper {
   }
 
   static Widget myDrawer(BuildContext context) {
+    final themeManager = Provider.of<ThemeManager>(context);
     return Drawer(
-      backgroundColor: Colors.white,
       child: ListView(
         children: [
           Image.asset("Assets/eRTO2.png"),
@@ -45,6 +46,22 @@ class Uihelper {
             subtitle: Text("English"),
             onTap: () {},
           ),
+          ListTile(
+              leading: Icon(
+                Icons.language,
+                color: MyAppColors.buttonPrimary,
+              ),
+              title: Row(
+                children: [
+                  Text("Theme"),
+                  Switch(
+                      value: themeManager.themeMode == ThemeMode.dark,
+                      onChanged: (newValue) {
+                        print("Changed Them");
+                        themeManager.toggleTheme(newValue);
+                      }),
+                ],
+              )),
           ListTile(
             leading: Icon(
               Icons.local_police,

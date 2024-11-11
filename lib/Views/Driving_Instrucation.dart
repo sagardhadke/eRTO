@@ -9,7 +9,6 @@ class MyDriving_Instruction extends StatelessWidget {
       appBar: AppBar(
         title: Uihelper.myText(
             'Driving Instruction', TextStyle(fontWeight: FontWeight.bold)),
-        backgroundColor: Colors.white,
       ),
       body: ListView.builder(
           itemCount: DrivingInstructions.drivingInstructions.length,

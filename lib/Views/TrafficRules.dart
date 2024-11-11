@@ -9,7 +9,6 @@ class MyTrafficRules extends StatelessWidget {
         appBar: AppBar(
           title: Uihelper.myText(
               'Traffic Rules', TextStyle(fontWeight: FontWeight.bold)),
-          backgroundColor: Colors.white,
         ),
         body: ListView.builder(
             itemCount: Trafficrules.trafficRules.length,
