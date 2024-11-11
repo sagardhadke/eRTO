@@ -101,4 +101,20 @@ class Uihelper {
       ),
     );
   }
+
+
+  static Widget shimmerContainer({required double height, required double width,required context}) {
+    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
+    return Shimmer.fromColors(
+      baseColor: _isDarkMode ? Colors.black12 : Colors.grey[300]!,
+      highlightColor: Colors.grey[100]!,
+      child: Container(
+        height: height,
+        width: width,
+        color: Colors.white,
+      ),
+    );
+  
+}
+
 }

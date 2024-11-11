@@ -113,15 +113,15 @@ class _MyTestState extends State<MyTest> {
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  shimmerContainer(height: 100, width: 100),
+                  Uihelper.shimmerContainer(height: 100, width: 100,context: context),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        shimmerContainer(height: 20, width: 120),
-                        shimmerContainer(
+                        Uihelper.shimmerContainer(height: 20, width: 120,context: context),
+                        Uihelper.shimmerContainer(
                             height: 15,
-                            width: MediaQuery.of(context).size.width * 0.8),
+                            width: MediaQuery.of(context).size.width * 0.8,context: context),
                       ],
                     ),
                   ),
@@ -132,16 +132,4 @@ class _MyTestState extends State<MyTest> {
         });
   }
 
-  Widget shimmerContainer({required double height, required double width}) {
-    bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
-    return Shimmer.fromColors(
-      baseColor: _isDarkMode ? Colors.black12 : Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        height: height,
-        width: width,
-        color: Colors.white,
-      ),
-    );
-  }
 }

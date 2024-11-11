@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:rto/Exports/myExports.dart';
 
 class MyDrivingLessons extends StatefulWidget {
@@ -14,9 +15,14 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
   String baseUri = dotenv.env['BASE_URL'] ?? '';
   List<DrivingLessons>? ofDrivingLessons;
   final dio = Dio();
+  bool isLoading = true;
 
   void fetchDrivingLessons() async {
     try {
+      setState(() {
+        //for shimmer
+        isLoading = true;
+      });
       var drivinglessRes =
           await dio.get("$baseUri/single_post?id=${widget.id}");
 
@@ -30,7 +36,15 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
       }
     } catch (e) {
       Uihelper.logger.e("Error ${e.toString()}");
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
     }
+  }
+
+  Future<void> _handleRefresh() async {
+    fetchDrivingLessons();
   }
 
   @override
@@ -46,29 +60,63 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
           title: Uihelper.myText(
               'Driving Lessons', TextStyle(fontWeight: FontWeight.bold)),
         ),
-        body: ofDrivingLessons == null
-            ? Center(
-                child: CircularProgressIndicator.adaptive(),
-              )
-            : ListView.builder(
-                itemCount: ofDrivingLessons!.length,
-                itemBuilder: (context, i) {
-                  return Column(
-                    children: [
-                      Image.asset("${widget.img!}"),
-                      Uihelper.myText("${ofDrivingLessons![i].name!}",
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
-                      Uihelper.myText("Level : ${ofDrivingLessons![i].level!}",
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 18)),
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Uihelper.myText(
-                            "Description : ${ofDrivingLessons![i].description!}",
-                            TextStyle(
-                                fontWeight: FontWeight.w400, fontSize: 17)),
-                      ),
-                    ],
-                  );
-                }));
+        body: LiquidPullToRefresh(
+            color: MyAppColors.buttonPrimary,
+            height: 150,
+            animSpeedFactor: 3,
+            showChildOpacityTransition: false,
+            onRefresh: _handleRefresh,
+            child: isLoading
+                ? _DrivingLessonsShimmer()
+                : ListView.builder(
+                    itemCount: ofDrivingLessons!.length,
+                    itemBuilder: (context, i) {
+                      return Column(
+                        children: [
+                          Image.asset("${widget.img!}"),
+                          Uihelper.myText(
+                              "${ofDrivingLessons![i].name!}",
+                              TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 20)),
+                          Uihelper.myText(
+                              "Level : ${ofDrivingLessons![i].level!}",
+                              TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 18)),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Uihelper.myText(
+                                "Description : ${ofDrivingLessons![i].description!}",
+                                TextStyle(
+                                    fontWeight: FontWeight.w400, fontSize: 17)),
+                          ),
+                        ],
+                      );
+                    })));
+  }
+
+  _DrivingLessonsShimmer() {
+    return ListView.builder(itemBuilder: (context, i) {
+      return Column(
+        children: [
+          Uihelper.shimmerContainer(
+              height: 250, width: double.infinity, context: context),
+          SizedBox(height: 5),
+          Uihelper.shimmerContainer(height: 20, width: 120, context: context),
+          SizedBox(height: 5),
+          Uihelper.shimmerContainer(height: 20, width: 120, context: context),
+          SizedBox(height: 5),
+          Column(
+              children: List.generate(10, (index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Uihelper.shimmerContainer(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  context: context),
+            );
+          }))
+        ],
+      );
+    });
   }
 }
