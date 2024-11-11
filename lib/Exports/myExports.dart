@@ -38,6 +38,9 @@ export 'package:rto/Services/api_service.dart';
 //Provider
 export 'package:provider/provider.dart';
 
+//Shimmer 
+export 'package:shimmer/shimmer.dart';
+
 //UI Helper
 export 'package:rto/Widgets/uiHelper.dart';
 

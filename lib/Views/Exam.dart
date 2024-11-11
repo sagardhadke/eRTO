@@ -1,6 +1,7 @@
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:rto/Exports/myExports.dart';
 import 'package:http/http.dart' as http;
+import 'package:rto/Views/myExamShimmer.dart';
 
 class MyExam extends StatefulWidget {
   final String? id;
@@ -106,9 +107,7 @@ class _MyExamState extends State<MyExam> {
             centerTitle: true,
           ),
           body: isLoading
-              ? Center(
-                  child: CircularProgressIndicator.adaptive(),
-                )
+              ? MyexamShimmer()
               : ofExam == null
                   ? Column(
                       children: [
@@ -171,6 +170,32 @@ class _MyExamState extends State<MyExam> {
                     ),
         ),
         onWillPop: _onWillPop);
+  }
+
+  //Shimmer Loader
+  myShimmerLoader() {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[300]!,
+      highlightColor: Colors.grey[300]!,
+      child: Row(
+        children: [
+          const CircleAvatar(
+            radius: 40,
+            backgroundColor: Colors.white,
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+              child: Column(
+            children: [
+              const SizedBox(height: 15),
+              Container(height: 20, color: Colors.white),
+              const SizedBox(height: 10),
+              Container(height: 15, width: 80, color: Colors.white),
+            ],
+          ))
+        ],
+      ),
+    );
   }
 
   Widget _questionWidget() {
