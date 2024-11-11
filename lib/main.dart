@@ -1,7 +1,6 @@
 import 'package:rto/Utils/Themes/theme_constants.dart';
 import 'package:rto/Utils/Themes/theme_manager.dart';
 
-
 import 'Exports/myExports.dart';
 
 Future<void> main() async {
