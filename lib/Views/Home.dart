@@ -1,7 +1,7 @@
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:rto/Exports/myExports.dart';
-import 'package:rto/Utils/Themes/theme_manager.dart';
+// import 'package:rto/Utils/Themes/theme_manager.dart';
 
 class MyHome extends StatefulWidget {
   const MyHome({super.key});
@@ -10,18 +10,27 @@ class MyHome extends StatefulWidget {
   State<MyHome> createState() => _MyHomeState();
 }
 
-ThemeManager _themeManager = ThemeManager();
+// ThemeManager _themeManager = ThemeManager();
 
 class _MyHomeState extends State<MyHome> {
-  @override
-  void dispose() {
-    _themeManager.removeListener(themeListener);
-    super.dispose();
-  }
+  bool isLoading = true;
+  // @override
+  // void dispose() {
+  //   // _themeManager.removeListener(themeListener);
+  //   super.dispose();
+  // }
 
   @override
   void initState() {
-    _themeManager.addListener(themeListener);
+    // _themeManager.loadTheme();
+    Future.delayed(Duration(milliseconds: 2000), () {
+      _homeShimmer();
+      setState(() {
+        isLoading = false;
+      });
+    });
+
+    // _themeManager.addListener(themeListener);
     Timer.periodic(Duration(seconds: 3), (time) {
       if (currentPage < 2) {
         currentPage++;
@@ -43,7 +52,6 @@ class _MyHomeState extends State<MyHome> {
 
   int currentPage = 0;
   PageController controller = PageController(viewportFraction: 1.0);
-  bool isLoading = false;
 
   Future<void> _handleRefresh() async {
     print('Refreshing...');
@@ -59,9 +67,6 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
-    // TextTheme _textTheme = Theme.of(context).textTheme;
-    // bool isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       drawer: Uihelper.myDrawer(context),
       appBar: AppBar(

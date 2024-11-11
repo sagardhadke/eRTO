@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:rto/Widgets/uiHelper.dart';
 
 class MyexamShimmer extends StatelessWidget {
   MyexamShimmer({super.key});
@@ -17,44 +18,34 @@ class MyexamShimmer extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      shimmerContainer(
-                        height: 20,
-                        width: 150,
-                      ),
-                      shimmerContainer(
-                        height: 20,
-                        width: 100,
-                      ),
+                      Uihelper.shimmerContainer(
+                          height: 20, width: 150, context: context),
+                      Uihelper.shimmerContainer(
+                          height: 20, width: 100, context: context),
                     ],
                   ),
                   SizedBox(height: 10),
                   shimmerProgressBar(),
                 ],
               )),
-          shimmerContainer(
-              height: 150, width: MediaQuery.of(context).size.width * 0.9),
+          Uihelper.shimmerContainer(
+              height: 150,
+              width: MediaQuery.of(context).size.width * 0.9,
+              context: context),
           SizedBox(height: 5),
           shimmerAnswerList(context),
-          shimmerContainer(
-              height: 50, width: MediaQuery.of(context).size.width * 0.8),
+          Uihelper.shimmerContainer(
+              height: 50,
+              width: MediaQuery.of(context).size.width * 0.8,
+              context: context),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: shimmerContainer(
-                height: 20, width: MediaQuery.of(context).size.width * 0.9),
+            child: Uihelper.shimmerContainer(
+                height: 20,
+                width: MediaQuery.of(context).size.width * 0.9,
+                context: context),
           ),
         ],
-      ),
-    );
-  }
-
-  Widget shimmerContainer({required double height, required double width}) {
-    return Shimmer.fromColors(
-      baseColor: Colors.grey[300]!,
-      highlightColor: Colors.grey[100]!,
-      child: Container(
-        height: height,
-        width: width,
-        color: Colors.white,
       ),
     );
   }
@@ -79,8 +70,10 @@ class MyexamShimmer extends StatelessWidget {
         children: List.generate(4, (index) {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 10.0),
-            child: shimmerContainer(
-                height: 40, width: MediaQuery.of(context).size.width * 0.9),
+            child: Uihelper.shimmerContainer(
+                height: 40,
+                width: MediaQuery.of(context).size.width * 0.9,
+                context: context),
           );
         }),
       ),

@@ -1,3 +1,5 @@
+import 'package:rto/Utils/Themes/theme_manager.dart';
+
 import 'Exports/myExports.dart';
 
 class MyDashboard extends StatefulWidget {
@@ -15,10 +17,17 @@ class _MyDashboardState extends State<MyDashboard> {
 
   int myIndex = 0;
   List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
+  static Future<bool> readPref() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getBool('ofTheme') ?? false;
+  }
 
   @override
   void initState() {
     super.initState();
+
+    //theme status
+    readPref();
 
     //Internet Checker
     _internetConnectionStreamSubscription =

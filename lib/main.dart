@@ -6,29 +6,27 @@ import 'Exports/myExports.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  final themeManager = ThemeManager();
+  await themeManager.loadTheme();
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryController>(
           create: (_) => CategoryController(ApiService()),
         ),
-        ChangeNotifierProvider<ThemeManager>(create: (_) => ThemeManager())
+        ChangeNotifierProvider<ThemeManager>(create: (_) => themeManager)
       ],
       child: MyApp(),
     ),
   );
 }
 
-ThemeManager _themeManager = ThemeManager();
+class MyApp extends StatelessWidget {
+  const MyApp({
+    super.key,
+  });
 
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,6 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'eRTO',
-        // theme: lightTheme,
         darkTheme: darkTheme,
         themeMode: themeManager.themeMode,
         theme: lightTheme,

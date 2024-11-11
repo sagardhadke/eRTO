@@ -1,5 +1,6 @@
 import 'package:rto/Exports/myExports.dart';
 import 'package:rto/Utils/Themes/theme_manager.dart';
+import 'package:flutter/cupertino.dart';
 
 class Uihelper {
   static final Logger logger = Logger(
@@ -33,6 +34,7 @@ class Uihelper {
 
   static Widget myDrawer(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
+
     return Drawer(
       child: ListView(
         children: [
@@ -52,13 +54,19 @@ class Uihelper {
                 color: MyAppColors.buttonPrimary,
               ),
               title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text("Theme"),
-                  Switch(
+                  CupertinoSwitch(
+                      activeColor: Colors.blue,
+                      trackColor: Colors.blue,
                       value: themeManager.themeMode == ThemeMode.dark,
                       onChanged: (newValue) {
-                        print("Changed Them");
                         themeManager.toggleTheme(newValue);
+                        ThemeManager.writePref(newValue);
+                        print(
+                            "Switching to ${newValue ? 'Dark' : 'Light'} mode");
+                        print("Changed Theme");
                       }),
                 ],
               )),
@@ -102,8 +110,8 @@ class Uihelper {
     );
   }
 
-
-  static Widget shimmerContainer({required double height, required double width,required context}) {
+  static Widget shimmerContainer(
+      {required double height, required double width, required context}) {
     bool _isDarkMode = Theme.of(context).brightness == Brightness.dark;
     return Shimmer.fromColors(
       baseColor: _isDarkMode ? Colors.black12 : Colors.grey[300]!,
@@ -114,7 +122,5 @@ class Uihelper {
         color: Colors.white,
       ),
     );
-  
-}
-
+  }
 }

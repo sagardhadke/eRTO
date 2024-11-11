@@ -64,6 +64,9 @@ export 'package:cached_network_image/cached_network_image.dart';
 //ReadMore
 export 'package:readmore/readmore.dart';
 
+//Shared Preferences
+export 'package:shared_preferences/shared_preferences.dart';
+
 //Colors
 export 'package:rto/Utils/constants/colors.dart';
 
