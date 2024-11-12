@@ -1,20 +1,22 @@
 import 'package:rto/Utils/Themes/theme_constants.dart';
 import 'package:rto/Utils/Themes/theme_manager.dart';
-
 import 'Exports/myExports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
 
+//important
   final themeManager = ThemeManager();
   await themeManager.loadTheme();
+
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<CategoryController>(
           create: (_) => CategoryController(ApiService()),
         ),
+        //important
         ChangeNotifierProvider<ThemeManager>(create: (_) => themeManager)
       ],
       child: MyApp(),
@@ -44,6 +46,6 @@ class MyApp extends StatelessWidget {
         //   colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         //   useMaterial3: true,
         // ),
-        home: MyDashboard());
+        home: MySplashScreen());
   }
 }
