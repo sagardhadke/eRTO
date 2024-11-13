@@ -41,7 +41,6 @@ dependencies:
   logger: ^2.4.0
   introduction_screen: ^3.1.14
   connectivity_plus: ^6.1.0
-  flutter_svg: ^2.0.10+1
   lottie: ^3.1.3
   shimmer: ^3.0.0
   cached_network_image: ^3.4.1
@@ -49,7 +48,6 @@ dependencies:
   google_fonts: ^6.2.1
   provider: ^6.1.2
   shared_preferences: ^2.3.2
-  skeletonizer: ^1.4.2
   page_transition: ^2.1.0
   internet_connection_checker_plus: ^2.5.2
   flutter_launcher_icons: ^0.14.1
@@ -62,22 +60,19 @@ dev_dependencies:
     sdk: flutter
 
 flutter_launcher_icons:
-  android: "launcher_icon"
+  android: true
   ios: true
-  image_path: "Assets/eRTO2.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  image_path: "Assets/play_store_512.png"
   web:
     generate: true
-    image_path: "Assets/eRTO2.png"
-    background_color: "#hexcode"
-    theme_color: "#hexcode"
+    image_path: "Assets/play_store_512.png"
   windows:
     generate: true
-    image_path: "Assets/eRTO2.png"
+    image_path: "Assets/play_store_512.png"
     icon_size: 48 # min:48, max:256, default: 48
   macos:
     generate: true
-    image_path: "Assets/eRTO2.png"
+    image_path: "Assets/play_store_512.png"
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

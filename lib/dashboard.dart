@@ -1,5 +1,3 @@
-import 'package:rto/Utils/Themes/theme_manager.dart';
-
 import 'Exports/myExports.dart';
 
 class MyDashboard extends StatefulWidget {
@@ -10,13 +8,13 @@ class MyDashboard extends StatefulWidget {
 }
 
 class _MyDashboardState extends State<MyDashboard> {
-  bool isConnectedToInternet = false;
-  bool isLoading = true;
+  bool isConnectedToInternet = true;
 
   StreamSubscription? _internetConnectionStreamSubscription;
 
   int myIndex = 0;
   List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
+
   static Future<bool> readPref() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool('ofTheme') ?? false;
@@ -26,33 +24,29 @@ class _MyDashboardState extends State<MyDashboard> {
   void initState() {
     super.initState();
 
-    //theme status
-    readPref();
-
-    //Internet Checker
     _internetConnectionStreamSubscription =
         InternetConnection().onStatusChange.listen((event) {
       switch (event) {
         case InternetStatus.connected:
           setState(() {
             isConnectedToInternet = true;
-            isLoading = false;
           });
           break;
         case InternetStatus.disconnected:
           setState(() {
             isConnectedToInternet = false;
-            isLoading = false;
           });
           break;
         default:
           setState(() {
-            isConnectedToInternet = false;
-            isLoading = false;
+            isConnectedToInternet = true;
           });
           break;
       }
     });
+
+    //theme status
+    readPref();
   }
 
   @override
@@ -64,10 +58,12 @@ class _MyDashboardState extends State<MyDashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        children: widgetList,
-        index: myIndex,
-      ),
+      body: isConnectedToInternet
+          ? IndexedStack(
+              children: widgetList,
+              index: myIndex,
+            )
+          : NoInternet(),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: MyAppColors.primary,

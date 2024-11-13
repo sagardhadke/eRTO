@@ -1,5 +1,6 @@
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:page_transition/page_transition.dart';
 import 'package:rto/Exports/myExports.dart';
 // import 'package:rto/Utils/Themes/theme_manager.dart';
 
@@ -10,19 +11,11 @@ class MyHome extends StatefulWidget {
   State<MyHome> createState() => _MyHomeState();
 }
 
-// ThemeManager _themeManager = ThemeManager();
-
 class _MyHomeState extends State<MyHome> {
   bool isLoading = true;
-  // @override
-  // void dispose() {
-  //   // _themeManager.removeListener(themeListener);
-  //   super.dispose();
-  // }
 
   @override
   void initState() {
-    // _themeManager.loadTheme();
     Future.delayed(Duration(milliseconds: 2000), () {
       _homeShimmer();
       setState(() {
@@ -30,7 +23,6 @@ class _MyHomeState extends State<MyHome> {
       });
     });
 
-    // _themeManager.addListener(themeListener);
     Timer.periodic(Duration(seconds: 3), (time) {
       if (currentPage < 2) {
         currentPage++;
@@ -87,7 +79,6 @@ class _MyHomeState extends State<MyHome> {
                       child: Uihelper.myText("Driving Lessons",
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
                     ),
-                    // _imageSlider(),
                     _custPageView(),
                     _homeIntro(),
                     Padding(
@@ -111,11 +102,12 @@ class _MyHomeState extends State<MyHome> {
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MyDrivingLessons(
-                            id: 1,
-                            img: "Assets/drive1.png",
-                          )));
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: MyDrivingLessons(
+                        id: 1,
+                        img: "Assets/drive1.png",
+                      )));
             },
             child: Stack(
               children: [
@@ -139,11 +131,12 @@ class _MyHomeState extends State<MyHome> {
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MyDrivingLessons(
-                            id: 2,
-                            img: "Assets/drive2.jpg",
-                          )));
+                  PageTransition(
+                      type: PageTransitionType.leftToRight,
+                      child: MyDrivingLessons(
+                        id: 2,
+                        img: "Assets/drive2.jpg",
+                      )));
             },
             child: Stack(
               children: [
@@ -167,11 +160,12 @@ class _MyHomeState extends State<MyHome> {
             onTap: () {
               Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => MyDrivingLessons(
-                            id: 3,
-                            img: "Assets/drive3.png",
-                          )));
+                  PageTransition(
+                      type: PageTransitionType.rightToLeft,
+                      child: MyDrivingLessons(
+                        id: 3,
+                        img: "Assets/drive3.png",
+                      )));
             },
             child: Stack(
               children: [
@@ -196,50 +190,18 @@ class _MyHomeState extends State<MyHome> {
     );
   }
 
-  Widget _imageSlider() {
-    return ImageSlideshow(
-      indicatorColor: Colors.blue,
-      autoPlayInterval: 3000,
-      isLoop: true,
-      children: [
-        GestureDetector(
-          onTap: () {
-            debugPrint('Click');
-          },
-          child: Image.asset(
-            'Assets/drive1.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            debugPrint('Click');
-          },
-          child: Image.asset(
-            'Assets/drive2.jpg',
-            fit: BoxFit.cover,
-          ),
-        ),
-        GestureDetector(
-          onTap: () {
-            debugPrint('Click');
-          },
-          child: Image.asset(
-            'Assets/drive3.png',
-            fit: BoxFit.cover,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _homeIntro() {
     return Padding(
       padding: const EdgeInsets.all(7.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => MyFour_Wheeler_Tips()));
+          // Navigator.push(context,
+          //     MaterialPageRoute(builder: (context) => MyFour_Wheeler_Tips()));
+          Navigator.push(
+              context,
+              PageTransition(
+                  type: PageTransitionType.bottomToTop,
+                  child: MyFour_Wheeler_Tips()));
         },
         child: Card(
           elevation: 10,
@@ -283,9 +245,14 @@ class _MyHomeState extends State<MyHome> {
                 print("Click");
                 Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            Texthelper.myTopFeatures[i]['onTap']));
+                    PageTransition(
+                        type: PageTransitionType.rightToLeft,
+                        child: Texthelper.myTopFeatures[i]['onTap']));
+                // Navigator.push(
+                //     context,
+                //     MaterialPageRoute(
+                //         builder: (context) =>
+                //             Texthelper.myTopFeatures[i]['onTap']));
               },
               child: Container(
                 width: MediaQuery.sizeOf(context).width / 03,
