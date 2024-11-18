@@ -46,7 +46,17 @@ class Uihelper {
             ),
             title: const Text("Language"),
             subtitle: Text("English"),
-            onTap: () {},
+            onTap: () {
+              print("object");
+
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "Language Feature coming soon",
+                ),
+                backgroundColor: Colors.green,
+                showCloseIcon: true,
+              ));
+            },
           ),
           ListTile(
               leading: Icon(
@@ -77,6 +87,13 @@ class Uihelper {
             ),
             title: const Text("Privacy Policy"),
             onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "Policy Page coming soon",
+                ),
+                backgroundColor: Colors.green,
+                showCloseIcon: true,
+              ));
               // Navigator.push(
               //     context, MaterialPageRoute(builder: (context) => MyAbout()));
             },
@@ -87,7 +104,15 @@ class Uihelper {
               color: MyAppColors.buttonPrimary,
             ),
             title: const Text("Share With Friends"),
-            onTap: () {},
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "Share Feature coming soon",
+                ),
+                backgroundColor: Colors.green,
+                showCloseIcon: true,
+              ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -95,7 +120,15 @@ class Uihelper {
               color: MyAppColors.buttonPrimary,
             ),
             title: const Text("Terms & Conditions"),
-            onTap: () {},
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "Terms & Conditions Feature coming soon",
+                ),
+                backgroundColor: Colors.green,
+                showCloseIcon: true,
+              ));
+            },
           ),
           ListTile(
             leading: Icon(
@@ -103,7 +136,15 @@ class Uihelper {
               color: MyAppColors.buttonPrimary,
             ),
             title: const Text("Rate Us"),
-            onTap: () {},
+            onTap: () {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "Rate Us Feature coming soon",
+                ),
+                backgroundColor: Colors.green,
+                showCloseIcon: true,
+              ));
+            },
           ),
         ],
       ),
