@@ -1,4 +1,5 @@
 import 'package:introduction_screen/introduction_screen.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rto/Exports/myExports.dart';
 
 class MyOnBoarding extends StatelessWidget {
@@ -7,33 +8,64 @@ class MyOnBoarding extends StatelessWidget {
   List<PageViewModel> getPage() {
     return [
       PageViewModel(
-        title: "Title of blue page",
+        image: Lottie.asset(
+          "Assets/Anim/onBoard1.json",
+          repeat: true,
+          fit: BoxFit.fill,
+          width: 300,
+        ),
+        title: 'Welcome to eRTO!',
         body:
-            "Welcome to the app! This is a description on a page with a blue background.",
-        image: Center(
-          child: Image.network("https://example.com/image.png", height: 175.0),
-        ),
-        decoration: const PageDecoration(
-          pageColor: Colors.blue,
-        ),
+            'Your ultimate companion for RTO exams, traffic rules, and driving lessons.',
       ),
       PageViewModel(
-          image: Image.asset("Assets/drive1.png"),
-          title: 'This is car',
-          body:
-              'This is body and i am developing the flutter app ok i use the flutter sdk github',
-          footer: Text("This is footer text ok")),
+        image: Lottie.asset(
+          "Assets/Anim/onBoard2.json",
+          repeat: true,
+          fit: BoxFit.fill,
+          width: 350,
+          height: 350,
+        ),
+        title: 'Personalize Your Experience',
+        body:
+            'Switch between Dark and Light mode for a comfortable app experience.',
+      ),
       PageViewModel(
-          image: Image.asset("Assets/drive2.jpg"),
-          title: 'This is Bike',
-          body: 'This is not a body provider i use the flutter sdk github',
-          footer: Text("This is not a text ok")),
+        image: Lottie.asset(
+          "Assets/Anim/onBoard3.json",
+          repeat: true,
+          fit: BoxFit.fill,
+          width: 350,
+          height: 350,
+        ),
+        title: 'Learn at Your Own Pace',
+        body:
+            'From beginner to advanced, choose driving lessons tailored to you.',
+      ),
       PageViewModel(
-          image: Image.asset("Assets/drive3.png"),
-          title: 'This is car',
-          body:
-              'This is body and i am developing the flutter app ok i use the flutter sdk github',
-          footer: Text("This is footer text ok")),
+        image: Lottie.asset(
+          "Assets/Anim/onBoard4.json",
+          repeat: true,
+          fit: BoxFit.fill,
+          width: 350,
+          height: 350,
+        ),
+        title: 'Prepare for Your RTO Exam',
+        body:
+            'Master traffic rules and ace your RTO exam with practice tests and quizzes.',
+      ),
+      PageViewModel(
+        image: Lottie.asset(
+          "Assets/Anim/onBoard5.json",
+          repeat: true,
+          fit: BoxFit.fill,
+          width: 350,
+          height: 350,
+        ),
+        title: 'Master Driving Techniques',
+        body:
+            'Get step-by-step instructions on parking, driving maneuvers, and more.',
+      ),
     ];
   }
 
@@ -41,6 +73,7 @@ class MyOnBoarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: IntroductionScreen(
+      bodyPadding: EdgeInsets.only(top: 150),
       pages: getPage(),
       showSkipButton: true,
       skip: const Text("Skip"),

@@ -47,7 +47,10 @@ class _MyCategoryState extends State<MyCategory> {
   @override
   void initState() {
     super.initState();
-    getCategoryList();
+    if (Get.find<ConnectivityController>().isConnected) {
+      getCategoryList();
+    } else {
+    }
   }
 
   @override
@@ -66,58 +69,61 @@ class _MyCategoryState extends State<MyCategory> {
         animSpeedFactor: 3,
         showChildOpacityTransition: false,
         onRefresh: _handleRefresh,
-        child: isLoading
-            ? _categoryShimmer()
-            : Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 60,
-                        crossAxisSpacing: 15),
-                    itemCount: ofCategoryList!.length,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        clipBehavior: Clip.none,
-                        alignment: Alignment.center,
-                        children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height / 2,
-                            color: _isDarkMode ? Colors.black : Colors.white,
-                          ),
-                          Positioned(
-                            top: -50,
-                            child: CachedNetworkImage(
-                                height: 100,
-                                width: 100,
-                                fit: BoxFit.contain,
-                                imageUrl:
-                                    '${ofCategoryList![index].catImage!}'),
-                          ),
-                          Positioned(
-                              bottom: 100,
-                              child: Text(
-                                textAlign: TextAlign.center,
-                                "${ofCategoryList![index].catName!}",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: MyAppColors.primary),
-                              )),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 50),
-                            child: ReadMoreText(
-                                textAlign: TextAlign.center,
-                                isExpandable: true,
-                                trimLines: 3,
-                                trimMode: TrimMode.Line,
-                                style: TextStyle(fontSize: 15),
-                                '${ofCategoryList![index].description!}'),
-                          ),
-                        ],
-                      );
-                    }),
-              ),
+        child: Get.find<ConnectivityController>().isConnected == false
+            ? NoInternet()
+            : isLoading
+                ? _categoryShimmer()
+                : Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 60,
+                            crossAxisSpacing: 15),
+                        itemCount: ofCategoryList!.length ?? 0,
+                        itemBuilder: (context, index) {
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.center,
+                            children: [
+                              Container(
+                                height: MediaQuery.of(context).size.height / 2,
+                                color:
+                                    _isDarkMode ? Colors.black : Colors.white,
+                              ),
+                              Positioned(
+                                top: -50,
+                                child: CachedNetworkImage(
+                                    height: 100,
+                                    width: 100,
+                                    fit: BoxFit.contain,
+                                    imageUrl:
+                                        '${ofCategoryList![index].catImage!}'),
+                              ),
+                              Positioned(
+                                  bottom: 100,
+                                  child: Text(
+                                    textAlign: TextAlign.center,
+                                    "${ofCategoryList![index].catName!}",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: MyAppColors.primary),
+                                  )),
+                              Padding(
+                                padding: const EdgeInsets.only(top: 50),
+                                child: ReadMoreText(
+                                    textAlign: TextAlign.center,
+                                    isExpandable: true,
+                                    trimLines: 3,
+                                    trimMode: TrimMode.Line,
+                                    style: TextStyle(fontSize: 15),
+                                    '${ofCategoryList![index].description!}'),
+                              ),
+                            ],
+                          );
+                        }),
+                  ),
       ),
     );
   }
@@ -136,26 +142,29 @@ class _MyCategoryState extends State<MyCategory> {
             children: [
               Uihelper.shimmerContainer(
                   height: MediaQuery.of(context).size.height / 2,
-                  width: double.infinity, context: context),
+                  width: double.infinity,
+                  context: context),
               Positioned(
                 top: -50,
-                child: Uihelper.shimmerContainer(height: 100, width: 100,context: context),
+                child: Uihelper.shimmerContainer(
+                    height: 100, width: 100, context: context),
               ),
               Positioned(
                 bottom: 100,
-                child: Uihelper.shimmerContainer(height: 20, width: 120,context: context),
+                child: Uihelper.shimmerContainer(
+                    height: 20, width: 120, context: context),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Uihelper.shimmerContainer(
-                    height: 15, width: MediaQuery.of(context).size.width * 0.8,context: context),
+                    height: 15,
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    context: context),
               ),
             ],
-          ); 
+          );
         },
       ),
     );
   }
-
- 
 }

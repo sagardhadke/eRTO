@@ -16,6 +16,7 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
   List<DrivingLessons>? ofDrivingLessons;
   final dio = Dio();
   bool isLoading = true;
+  bool _isFirstApiCall = true;
 
   void fetchDrivingLessons() async {
     try {
@@ -50,7 +51,11 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
   @override
   void initState() {
     super.initState();
-    fetchDrivingLessons();
+    if (Get.find<ConnectivityController>().isConnected) {
+      fetchDrivingLessons();
+    } else {
+      _isFirstApiCall = false;
+    }
   }
 
   @override
@@ -66,32 +71,37 @@ class MyDrivingLessonsState extends State<MyDrivingLessons> {
             animSpeedFactor: 3,
             showChildOpacityTransition: false,
             onRefresh: _handleRefresh,
-            child: isLoading
-                ? _DrivingLessonsShimmer()
-                : ListView.builder(
-                    itemCount: ofDrivingLessons!.length,
-                    itemBuilder: (context, i) {
-                      return Column(
-                        children: [
-                          Image.asset("${widget.img!}"),
-                          Uihelper.myText(
-                              "${ofDrivingLessons![i].name!}",
-                              TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 20)),
-                          Uihelper.myText(
-                              "Level : ${ofDrivingLessons![i].level!}",
-                              TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18)),
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Uihelper.myText(
-                                "Description : ${ofDrivingLessons![i].description!}",
-                                TextStyle(
-                                    fontWeight: FontWeight.w400, fontSize: 17)),
-                          ),
-                        ],
-                      );
-                    })));
+            child: Get.find<ConnectivityController>().isConnected == false
+                ? NoInternet()
+                : isLoading
+                    ? _DrivingLessonsShimmer()
+                    : ListView.builder(
+                        itemCount: ofDrivingLessons!.length,
+                        itemBuilder: (context, i) {
+                          return Column(
+                            children: [
+                              Image.asset("${widget.img!}"),
+                              Uihelper.myText(
+                                  "${ofDrivingLessons![i].name!}",
+                                  TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 20)),
+                              Uihelper.myText(
+                                  "Level : ${ofDrivingLessons![i].level!}",
+                                  TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18)),
+                              Padding(
+                                padding: const EdgeInsets.all(10.0),
+                                child: Uihelper.myText(
+                                    "Description : ${ofDrivingLessons![i].description!}",
+                                    TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 17)),
+                              ),
+                            ],
+                          );
+                        })));
   }
 
   _DrivingLessonsShimmer() {

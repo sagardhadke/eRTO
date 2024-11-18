@@ -8,10 +8,6 @@ class MyDashboard extends StatefulWidget {
 }
 
 class _MyDashboardState extends State<MyDashboard> {
-  bool isConnectedToInternet = true;
-
-  StreamSubscription? _internetConnectionStreamSubscription;
-
   int myIndex = 0;
   List<Widget> widgetList = const [MyHome(), MyCategory(), MyTest()];
 
@@ -23,47 +19,17 @@ class _MyDashboardState extends State<MyDashboard> {
   @override
   void initState() {
     super.initState();
-
-    _internetConnectionStreamSubscription =
-        InternetConnection().onStatusChange.listen((event) {
-      switch (event) {
-        case InternetStatus.connected:
-          setState(() {
-            isConnectedToInternet = true;
-          });
-          break;
-        case InternetStatus.disconnected:
-          setState(() {
-            isConnectedToInternet = false;
-          });
-          break;
-        default:
-          setState(() {
-            isConnectedToInternet = true;
-          });
-          break;
-      }
-    });
-
     //theme status
     readPref();
   }
 
   @override
-  void dispose() {
-    _internetConnectionStreamSubscription?.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: isConnectedToInternet
-          ? IndexedStack(
-              children: widgetList,
-              index: myIndex,
-            )
-          : NoInternet(),
+      body: IndexedStack(
+        children: widgetList,
+        index: myIndex,
+      ),
       bottomNavigationBar: BottomNavigationBar(
           type: BottomNavigationBarType.fixed,
           selectedItemColor: MyAppColors.primary,

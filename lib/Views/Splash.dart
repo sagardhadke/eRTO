@@ -1,8 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:rto/Exports/myExports.dart';
-import 'package:rto/Views/Category.dart';
 import 'package:rto/Views/onBoard/onboarding.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class MySplashScreen extends StatefulWidget {
   const MySplashScreen({super.key});
@@ -35,8 +32,7 @@ class _MySplashScreenState extends State<MySplashScreen> {
   void initState() {
     super.initState();
     Future.delayed(Duration(seconds: 2), () {
-      return Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MyDashboard()));
+      return checkUseronBoard();
     });
   }
 

@@ -1,4 +1,3 @@
-import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rto/Exports/myExports.dart';
@@ -59,6 +58,7 @@ class _MyHomeState extends State<MyHome> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       drawer: Uihelper.myDrawer(context),
       appBar: AppBar(
@@ -70,7 +70,8 @@ class _MyHomeState extends State<MyHome> {
           animSpeedFactor: 3,
           showChildOpacityTransition: false,
           onRefresh: _handleRefresh,
-          child: isLoading
+          child:
+           isLoading
               ? _homeShimmer()
               : ListView(
                   children: [

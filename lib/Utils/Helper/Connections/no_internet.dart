@@ -35,8 +35,8 @@ class NoInternet extends StatelessWidget {
             ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(backgroundColor: MyAppColors.appBar),
-                onPressed: () {
-                  
+                onPressed: () { 
+                  Get.find<ConnectivityController>().retryConnectiom();
                 },
                 child: Text(
                   "Try again",

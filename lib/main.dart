@@ -1,11 +1,15 @@
+import 'package:rto/Exports/myExports.dart';
 import 'package:rto/Utils/Themes/theme_constants.dart';
 import 'package:rto/Utils/Themes/theme_manager.dart';
-import 'Exports/myExports.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: ".env");
 
+  //return our connectivity controller
+  Get.put(ConnectivityController());
+
+  await dotenv.load(fileName: ".env");
+  
 //important
   final themeManager = ThemeManager();
   await themeManager.loadTheme();
@@ -23,7 +27,6 @@ Future<void> main() async {
     ),
   );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({
     super.key,
@@ -33,7 +36,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeManager = Provider.of<ThemeManager>(context);
-    return MaterialApp(
+    return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'eRTO',
         darkTheme: darkTheme,

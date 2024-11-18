@@ -19,6 +19,7 @@ class _MyTestState extends State<MyTest> {
       //for the shimmer effect
       isLoading = true;
     });
+
     try {
       var testApiRes = await http.get(Uri.parse("$baseUri/test_category_list"));
       if (testApiRes.statusCode == 200) {
@@ -59,48 +60,52 @@ class _MyTestState extends State<MyTest> {
           animSpeedFactor: 3,
           showChildOpacityTransition: false,
           onRefresh: _handleRefresh,
-          child: isLoading
-              ? _testShimer()
-              : ListView.builder(
-                  itemCount: ofTestCategory!.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => MyTermsOfUse(
-                                      id: ofTestCategory![index].id)));
-                          Uihelper.logger
-                              .d("Id send ${ofTestCategory![index].id}");
-                        },
-                        child: Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: Row(
-                            children: [
-                              CachedNetworkImage(
-                                  imageUrl: ofTestCategory![index].catImage!),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Uihelper.myText(
-                                        ofTestCategory![index].catName!,
-                                        TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 18)),
-                                    ReadMoreText(
-                                        ofTestCategory![index].description!),
-                                  ],
-                                ),
+          child: Get.find<ConnectivityController>().isConnected == false
+              ? NoInternet()
+              : isLoading
+                  ? _testShimer()
+                  : ListView.builder(
+                      itemCount: ofTestCategory!.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyTermsOfUse(
+                                          id: ofTestCategory![index].id)));
+                              Uihelper.logger
+                                  .d("Id send ${ofTestCategory![index].id}");
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                children: [
+                                  CachedNetworkImage(
+                                      imageUrl:
+                                          ofTestCategory![index].catImage!),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Uihelper.myText(
+                                            ofTestCategory![index].catName!,
+                                            TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 18)),
+                                        ReadMoreText(ofTestCategory![index]
+                                            .description!),
+                                      ],
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
-                        ),
-                      ),
-                    );
-                  })),
+                        );
+                      })),
     );
   }
 
@@ -113,15 +118,18 @@ class _MyTestState extends State<MyTest> {
               padding: const EdgeInsets.all(10.0),
               child: Row(
                 children: [
-                  Uihelper.shimmerContainer(height: 100, width: 100,context: context),
+                  Uihelper.shimmerContainer(
+                      height: 100, width: 100, context: context),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Uihelper.shimmerContainer(height: 20, width: 120,context: context),
+                        Uihelper.shimmerContainer(
+                            height: 20, width: 120, context: context),
                         Uihelper.shimmerContainer(
                             height: 15,
-                            width: MediaQuery.of(context).size.width * 0.8,context: context),
+                            width: MediaQuery.of(context).size.width * 0.8,
+                            context: context),
                       ],
                     ),
                   ),
@@ -131,5 +139,4 @@ class _MyTestState extends State<MyTest> {
           );
         });
   }
-
 }

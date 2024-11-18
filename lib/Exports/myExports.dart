@@ -3,8 +3,13 @@ export 'package:flutter/material.dart';
 //Env
 export 'package:flutter_dotenv/flutter_dotenv.dart';
 
+//GetX
+export 'package:get/get.dart';
+
 //No Internet
 export 'package:rto/Utils/Helper/Connections/no_internet.dart';
+export 'package:connectivity_plus/connectivity_plus.dart';
+export 'package:rto/Controller/connectivity_controller.dart';
 
 export 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 
